@@ -66,6 +66,11 @@ public class PlayerShooter : MonoBehaviour
         {
             bulletRemaining--;  //弾1減らす
 
+
+            UIController controller = GameObject.FindAnyObjectByType<UIController>();
+            controller.UpdateBullet();
+
+
             //攻撃開始Bulletプレハブ生成とZ前方へシュート
             //インターバルとなるコルーチンの開始
             GameObject _bullet = (GameObject)Instantiate(
@@ -87,6 +92,7 @@ public class PlayerShooter : MonoBehaviour
             shootStart = StartCoroutine(ShootStart());  //コルーチンスタート
         }
         Debug.Log(bulletRemaining);
+
     }
 
     //インターバル用

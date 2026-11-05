@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -40,6 +41,9 @@ public class PlayerRun : MonoBehaviour
 
     public float knockBackForceZ = -6f;
 
+    //[Header("プレイヤーの見た目")]→animaterBodyで取得しているものを使いまわせるのでいらなかった
+    //public GameObject playerBody;
+
 
     //体力の残数を参照メソッド
     public int Life()
@@ -69,6 +73,51 @@ public class PlayerRun : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.gameState == GameState.GameEnd) return;
+
+        //勝手にデバッグ用に機能を追加してみた
+        if (moveAction.ReadValue<Vector2>().y > 0 && Time.timeScale != 10.0f)
+        {
+            Time.timeScale = 10.0f; //上が押されたら、高速化
+        }
+
+        if (moveAction.ReadValue<Vector2>().y < 0 && Time.timeScale != 0.0f) 
+        {
+            Time.timeScale = 0.0f; //下が押されたら、一時停止（ポーズ）
+        }
+
+        if (moveAction.ReadValue<Vector2>().x != 0) //横移動しようとしたら（移動できなくても）
+        {
+            Time.timeScale = 1.0f;  //通常速度に戻す
+        }
+        //↑ここまで
+
+
+
+        //点滅処理
+        if (IsStun())
+        {                        
+            //valが一定周期で正か負か、値を決める。三角関数と時間
+            float val = Mathf.Sin(Time.time * 50);  //三角関数(Sin)を使って一定周期(リズム)で切り替える
+
+            if (val > 0)   // valが正の値なら
+            {
+                //見た目のMeshRendererをON
+                //animaterBody.GetComponent<MeshRenderer>().enabled = true;
+                animaterBody.SetActive(true);
+            }
+            else            // valが正の値ではない(=だいたい負)
+            {
+                //見た目のMeshRendererをON
+                animaterBody.SetActive(false);
+            }
+        }
+        else //ダメージ中ではない時、姿を現す
+        {
+            animaterBody.SetActive(true);
+        }
+
+
         //CharacterControllerがすでに接地判断isGroundedを持っている。接地＝true
 
         if (controller.isGrounded)  //接地しているならば、
@@ -176,7 +225,7 @@ public class PlayerRun : MonoBehaviour
 
     public void Jump()
     {
-        if (IsStun()) return;   //スタン中なら何もしない（できな）
+        if (IsStun()) return;   //スタン中なら何もしない（できない）
         if (controller.isGrounded)
         {
             moveDirection.y = speedJump;
@@ -207,5 +256,13 @@ public class PlayerRun : MonoBehaviour
     public void LifeDown()
     {
         life--;
+        UIController controller = GameObject.FindAnyObjectByType<UIController>();
+        controller.UpdateLife();
+
+        if (life <= 0)  //ライフなくなったら
+        {
+            //ステータス変更
+            GameManager.gameState = GameState.GameOver;
+        }
     }
 }

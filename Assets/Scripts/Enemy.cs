@@ -2,6 +2,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class Enemy : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class Enemy : MonoBehaviour
     //ダメージ中かどうか　ダメージ中のコルーチンを参照する変数
     Coroutine damageStart;
 
+    public GameObject effectObject;
 
     void Update()
     {
@@ -26,12 +28,12 @@ public class Enemy : MonoBehaviour
             if (val > 0)   // valが正の値なら
             {
                 //見た目のMeshRendererをON
-                GetComponent<MeshRenderer>().enabled = true;
+                enemyBody.GetComponent<MeshRenderer>().enabled = true;
             }
             else            // valが正の値ではない(=だいたい負)
             {
                 //見た目のMeshRendererをON
-                GetComponent<MeshRenderer>().enabled = false;
+                enemyBody.GetComponent<MeshRenderer>().enabled = false;
             }
             return; // 現フレームのUpdateを中断する（Updateは次フレームでまた動くけどね）
         }
@@ -47,11 +49,17 @@ public class Enemy : MonoBehaviour
                 if (enemyLife <= 0)
                 {
                     Destroy(gameObject);
+                    CreateEffect();
                 }
                 else //体力が残っていれば
                 {
                     damageStart = StartCoroutine(DamageStart());
                 }
+            }
+            if (other.gameObject.tag == "Slash")    //Slashは即撃破
+            {
+                Destroy(gameObject);
+                CreateEffect() ;
             }
 
         }
@@ -63,6 +71,16 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(freezeTime); //
         damageStart = null; //コルーチン発動中である証明だった変数を解放
 
-        GetComponent<MeshRenderer>().enabled = true;    //点滅中に消えて終わらないように見た目を戻す
+        enemyBody.GetComponent<MeshRenderer>().enabled = true;    //点滅中に消えて終わらないように見た目を戻す
+    }
+
+    void CreateEffect()
+    {
+
+        Instantiate(
+            effectObject,
+            transform.position,     //この場所
+            Quaternion.identity);   //回転させない
+
     }
 }

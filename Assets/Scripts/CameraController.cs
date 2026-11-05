@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -10,8 +11,18 @@ public class CameraController : MonoBehaviour
     [Header("カメラ追従スピード")]
     public float followSpeed = 5.0f; //カメラの追従スピード
 
+    [Header("カメラの初期位置")]
+    //public Vector3 startPos = new Vector3(0, 4.5f, 7.5f);
+    public Vector3 startPos = new Vector3(0, 10f, -6f);
+    //public Quaternion startRot = Quaternion.Euler(15.5f, 0, 0);
+    public Quaternion startRot = Quaternion.Euler(30.0f, 0, 0);
+
     void Start()
     {
+        //カメラ位置の初期化
+        transform.position = startPos;
+        transform.rotation = startRot;
+
         player = GameObject.FindGameObjectWithTag("Player");
 
         //最初に維持するべき距離を定義（Player位置-カメラ位置）
