@@ -15,7 +15,7 @@ public class BulletController : MonoBehaviour
         Destroy(gameObject, deleteTime);
     }
 
-    /* 以下はDestroy(gameObject, deleteTime);これでよかった…
+    /* 以下は無駄。Destroy(gameObject, deleteTime);←同じ処理はこれだけでよかった…
     void Update()
     {
         if (deleteTime > 0)//削除時間が残っているなら、

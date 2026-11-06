@@ -51,6 +51,16 @@ public class PlayerRun : MonoBehaviour
         return this.life;
     }
 
+    public void RecoverLife(int val)    //アクセサ
+    {
+        life += val;
+        if (life > DefaultLife)
+        {
+            life = DefaultLife;
+        }
+
+    }
+
     //硬直中かどうかを判断するメソッド
     bool IsStun()   //bool型なので、何か値を返す。publicが付いていないので、このスクリプトから呼ばれることがわかる
     {
@@ -81,12 +91,12 @@ public class PlayerRun : MonoBehaviour
             Time.timeScale = 10.0f; //上が押されたら、高速化
         }
 
-        if (moveAction.ReadValue<Vector2>().y < 0 && Time.timeScale != 0.0f) 
+        if (moveAction.ReadValue<Vector2>().y < 0 && Time.timeScale != 0.0f) //追加！
         {
             Time.timeScale = 0.0f; //下が押されたら、一時停止（ポーズ）
         }
 
-        if (moveAction.ReadValue<Vector2>().x != 0) //横移動しようとしたら（移動できなくても）
+        if (moveAction.ReadValue<Vector2>().x != 0 || jumpAction.WasPressedThisFrame()) //移動しようとしたら（移動できなくても）
         {
             Time.timeScale = 1.0f;  //通常速度に戻す
         }
@@ -150,9 +160,10 @@ public class PlayerRun : MonoBehaviour
 
             //ジャンプ押されている間
             //if (Input.GetButton("Jump"))  //古い書き方
-            if (jumpAction.IsPressed())    //新しいInputシステム書き方
+            //if (jumpAction.IsPressed())    //新しいInputシステム書き方(連続ジャンプ）
+            if (jumpAction.WasPressedThisFrame())    //新しいInputシステム書き方（１回ジャンプ）
             {
-                moveDirection.y = speedJump;    //y方向（向き）をセッティング
+                    moveDirection.y = speedJump;    //y方向（向き）をセッティング
 
                 // animator.SetTrigger("Jump"); //ジャンプアニメ（今はないので一次的にコメント）
             }
