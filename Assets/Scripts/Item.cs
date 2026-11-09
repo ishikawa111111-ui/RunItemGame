@@ -3,7 +3,8 @@ using UnityEngine;
 public enum ItemType
 {
     Life,
-    Bullet
+    Bullet,
+    Upgrade
 }
 
 public class Item : MonoBehaviour
@@ -19,11 +20,13 @@ public class Item : MonoBehaviour
     //弾の補充はPlayerShooter
     //スフィアの色で見分けられるように
 
-
     //コライダーを取得→OnTriggerでいい
     //Playerタグとぶつかったら
     //ItemTypeをチェックして、それぞれの回復へ
     //Itemタグはどこで使う？　＞弾との接触かな
+
+
+    public UpgradeData upgradeData; //生成したデータの情報を参照できる
 
     private void OnTriggerEnter(Collider other)
     {
@@ -39,6 +42,10 @@ public class Item : MonoBehaviour
             case ItemType.Bullet:
                     other.gameObject.GetComponent<PlayerShooter>().AddBullet(value);
                     FindAnyObjectByType<UIController>().UpdateBullet(); //UI更新
+                    break;
+            case ItemType.Upgrade:
+                    //管理リストに入手した情報を加える
+                    GameData.AddUpgrade(upgradeData);
                     break;
             }
             Destroy(gameObject);

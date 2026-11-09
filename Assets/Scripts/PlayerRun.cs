@@ -93,12 +93,14 @@ public class PlayerRun : MonoBehaviour
 
         if (moveAction.ReadValue<Vector2>().y < 0 && Time.timeScale != 0.0f) //追加！
         {
-            Time.timeScale = 0.0f; //下が押されたら、一時停止（ポーズ）
+            //Time.timeScale = 0.0f; //下が押されたら、一時停止（ポーズ）
+            Time.timeScale = 0.3f; //下が押されたら、スロー
         }
 
-        if (moveAction.ReadValue<Vector2>().x != 0 || jumpAction.WasPressedThisFrame()) //移動しようとしたら（移動できなくても）
+        if (moveAction.ReadValue<Vector2>().x != 0) //移動しようとしたら（移動できなくても）
+            //if (moveAction.ReadValue<Vector2>().x != 0 || jumpAction.WasPressedThisFrame()) //移動しようとしたら（移動できなくても）
         {
-            Time.timeScale = 1.0f;  //通常速度に戻す
+                Time.timeScale = 1.0f;  //通常速度に戻す
         }
         //↑ここまで
 

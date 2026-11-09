@@ -20,7 +20,9 @@ public class UIController : MonoBehaviour
     //ボタン関連
     public GameObject buttonPanel;
     public GameObject retryButton;
+    public GameObject nextButton;
 
+    public string nextScene;
 
     void Start()
     {
@@ -37,11 +39,6 @@ public class UIController : MonoBehaviour
     {
         yield return new WaitForSeconds(1.0f);
         statusText.SetActive(false);
-    }
-
-    void Update()
-    {
-        
     }
 
     public void UpdateLife()    //Lifeを更新
@@ -66,11 +63,29 @@ public class UIController : MonoBehaviour
     }
     public void GameOverDisplay()
     {
-        buttonPanel.SetActive(true);    //ボタン表示させる
+        buttonPanel.SetActive(true);    //ボタンパネル表示させる
         statusText.SetActive(true);     //テキスト表示させる
         statusText.GetComponent<TextMeshProUGUI>().text = "GAME OVER";
 
         sliderPanel.SetActive(false);   //Life非表示
         bulletPanel.SetActive(false);   //弾数非表示
+        nextButton.SetActive(false);   //NEXT非表示
     }
+
+    public void Next()
+    {
+        ////取得した現シーンを読み直す
+        SceneManager.LoadScene(nextScene);
+    }
+    public void GameClearDisplay()
+    {
+        buttonPanel.SetActive(true);    //ボタンパネル表示させる
+        statusText.SetActive(true);     //テキスト表示させる
+        statusText.GetComponent<TextMeshProUGUI>().text = "GAME CLEAR";
+
+        sliderPanel.SetActive(false);   //Life非表示
+        bulletPanel.SetActive(false);   //弾数非表示
+        retryButton.SetActive(false);   //retry非表示
+    }
+
 }

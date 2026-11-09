@@ -71,14 +71,21 @@ public class PlayerShooter : MonoBehaviour
             controller.UpdateBullet();
 
 
+            Vector3 pos = transform.position + new Vector3(0.0f, 1.0f, 0.5f);  //勝手に追加。弾の発射位置を調整
+
+
             //攻撃開始Bulletプレハブ生成とZ前方へシュート
             //インターバルとなるコルーチンの開始
+            //GameObject _bullet = (GameObject)Instantiate(
+            //    bullet, //プレハブ
+            //    transform.position, //生成位置
+            //    Quaternion.identity);   //回転させない
             GameObject _bullet = (GameObject)Instantiate(
                 bullet, //プレハブ
-                transform.position, //生成位置
+                pos, //生成位置
                 Quaternion.identity);   //回転させない
 
-            Rigidbody rbody=_bullet.GetComponent<Rigidbody>();  //生成したもののRigidbody
+            Rigidbody rbody =_bullet.GetComponent<Rigidbody>();  //生成したもののRigidbody
             Debug.Log(bulletSpeed);
             rbody.AddForce(new Vector3(0,0,bulletSpeed), ForceMode.Impulse);  //前シュート！
             //打ち出すときにみにチェックしているので、Time.deltatimeは点けなくてもPCによる性能差は出ない

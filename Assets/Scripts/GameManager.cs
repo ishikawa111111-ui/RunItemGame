@@ -7,7 +7,7 @@ public enum GameState
 {
     None,
     IsPlay,
-    GameCrear,
+    GameClear,
     GameOver,
     GameEnd,
 
@@ -16,7 +16,7 @@ public enum GameState
 
 public class GameManager : MonoBehaviour
 {
-    public static GameState gameState;  //自作した型を扱うStatic変数
+    public static GameState gameState;  //自作した型を扱うStatic変数。staticなので他のスクリプトからも使える
 
     //private GameObject mixingCamera;
 
@@ -56,6 +56,16 @@ public class GameManager : MonoBehaviour
 
 
             gameState = GameState.GameEnd;  //ループでGameOverが発動しないようにGameEndに変更している
+        }
+
+        //ゴールに着いたら（Goalスクリプトがステータスを変える）
+        if (gameState == GameState.GameClear)
+        {
+            //UIControllerを探し出してゲームクリア用のUI表示命令
+            UIController contoller = GameObject.FindAnyObjectByType<UIController>();
+            contoller.GameClearDisplay();
+
+            gameState = GameState.GameEnd; //GameEndにするとPlayerは止まる
         }
     }
     IEnumerator GameOverCamera()
