@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edfc1dd871c710244ae5d48458012caa, type: 3}
   m_Name: LifeUp
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
-  upgradeName: LifeUp
-  description: "\u30E9\u30A4\u30D5\uFF12\u5897\u3048\u308B"
+  upgradeName: "\u30E9\u30A4\u30D5\u30A2\u30C3\u30D7"
+  description: "\u6700\u5927\u30E9\u30A4\u30D5\u304C\uFF12\u5897\u3048\u308B\u3088"
   upgradeType: 0
   value: 2

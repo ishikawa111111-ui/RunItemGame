@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class BulletController : MonoBehaviour
@@ -7,7 +8,11 @@ public class BulletController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) //other何か　にぶつかったら
     {
-        Destroy(gameObject);
+        if (GameData.HasUpgrade(UpgradeType.PierceBullet) && other.gameObject.tag == "Enemy")   //貫通弾装備していたら
+            { 
+                return; //リターンで終了
+            }
+        Destroy(gameObject);    //貫通弾を持っていないと、この弾は消える
     }
 
     void Start()

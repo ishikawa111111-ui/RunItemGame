@@ -1,36 +1,45 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.UI;
 
 
 public class TitleController : MonoBehaviour
 {
-    public string newScene;
+    public string nextScene; //NewGameで移動するシーン名
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public string loadScene = "Intermission";   //装備画面
+    public Button loadButton;   //Loadボタンが押せないこともあるようにする
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public UpgradeData[] allUpgrades;
 
     public void NewScene() 
     {
-        if (newScene != null)
+        GameData.ResetData();
+
+        if (nextScene != null)
         {
             StartCoroutine(NextScene());
+            //遅らせるためにこの書き方。即ならSceneManager.LoadScene(nextScene);でもOK
         }
     }
+
+    public void LoadGame()
+    {
+        GameData.Load(allUpgrades);
+        StartCoroutine(LoadScene());    //遅らせるためにこの書き方
+    }
+
 
 
     IEnumerator NextScene()
     {
         yield return new WaitForSeconds(3.0f);
-        SceneManager.LoadScene(newScene);
+        SceneManager.LoadScene(nextScene);
+    }
+    IEnumerator LoadScene()
+    {
+        yield return new WaitForSeconds(3.0f);
+        SceneManager.LoadScene(loadScene);
     }
 }

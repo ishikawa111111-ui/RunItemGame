@@ -70,11 +70,12 @@ MonoBehaviour:
   itemPrefabs:
   - {fileID: 2967161658706072748, guid: 9fbe00f38ce285c40a2ba41eb45e8867, type: 3}
   - {fileID: 2506967444570303152, guid: 17b6b60b8b763784ea440ccf1f350b23, type: 3}
+  - {fileID: 1984081640993011540, guid: a1761c21944f5074896681b59979d403, type: 3}
   minInterval: 5
   maxInterval: 15
   offsetZ: 0
   posY: 1
-  spawnRate: 0.2
+  spawnRate: 0.5
 --- !u!114 &2300457943270350727
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -19,6 +19,7 @@ public class PlayerRun : MonoBehaviour
     Vector3 moveDirection= Vector3.zero;    //Moveメソッドに与える方向。zero=Vector3(0,0,0)と同じ
     private int targetLane; //移動先レーン
 
+    private int maxLife = DefaultLife;
     private int life = DefaultLife; //現体力   →アクセサ、ライフメソッドを作成
     private float recoverTime = 0.0f;   //硬直カウントダウン
 
@@ -54,9 +55,9 @@ public class PlayerRun : MonoBehaviour
     public void RecoverLife(int val)    //アクセサ
     {
         life += val;
-        if (life > DefaultLife)
+        if (life > maxLife)
         {
-            life = DefaultLife;
+            life = maxLife;
         }
 
     }
@@ -69,6 +70,10 @@ public class PlayerRun : MonoBehaviour
 
     void Start()
     {
+        //装備リストにLifeUpがあれば＋2（それ以外は0）
+        maxLife = DefaultLife + GameData.GetValue(UpgradeType.LifeUp);
+        life = maxLife; //ライフを最大値で初期化
+
         //Playerに付いているコンポーネントの取得
         controller = GetComponent<CharacterController>();
 
@@ -79,6 +84,7 @@ public class PlayerRun : MonoBehaviour
         InputActionMap actionmap = GetComponent<PlayerInput>().currentActionMap;
         moveAction = actionmap.FindAction("Move"); //現Map上にいるMoveというアクションを取得
         jumpAction = actionmap.FindAction("Jump"); //現Map上にいるJumpというアクションを取得
+
     }
 
     void Update()

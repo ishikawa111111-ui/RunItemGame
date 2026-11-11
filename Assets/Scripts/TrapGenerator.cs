@@ -15,7 +15,7 @@ public class TrapGenerator : MonoBehaviour
     public float posX = 0.0f; //トラップを置く高さ
     public float posY = 0.5f; //トラップを置く高さ
     //↑不要？一応つけておく
-    public float spawnRate = 0.3f; //トラップが出る確率（0〜1）
+    public float spawnRate = 0.2f; //トラップが出る確率（0〜1）
 
     void Start()
     {

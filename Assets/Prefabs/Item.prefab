@@ -70,6 +70,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Item
   itemType: 0
   value: 0
+  upgradeData: {fileID: 0}
 --- !u!54 &3390736276046441244
 Rigidbody:
   m_ObjectHideFlags: 0
