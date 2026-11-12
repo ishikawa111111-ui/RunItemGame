@@ -1,7 +1,4 @@
-using NUnit.Framework;
-using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class StageGenerator : MonoBehaviour
@@ -48,7 +45,7 @@ public class StageGenerator : MonoBehaviour
         if (toChipIndex <= currentChipIndex) return;    //現在作ってあるフロア数を下回っていた場合は何もしない（基本発生しえないはず、不要）
 
         //現在生成済みフロア番号＋１からはじめ、作るべきフロア番号にたどり着くまで繰り返す
-        for (int i = currentChipIndex + 1; i <= toChipIndex; i++)   //引数の数になるまでフロア生成を繰り替えす
+        for (int i = currentChipIndex + 2; i <= toChipIndex; i++)   //引数の数になるまでフロア生成を繰り替えす
         {
             GameObject stageObject = GeneratedStage(i);
             generatedStageList.Add(stageObject);    //リストの末尾に記帳される

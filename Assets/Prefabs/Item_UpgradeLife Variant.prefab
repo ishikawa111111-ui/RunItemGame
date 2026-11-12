@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 245774953147354500, guid: 69e9e9eccfccca842b0e475f11ebe3e9, type: 3}
       propertyPath: m_Name
-      value: Item_Upgrade_Life Variant
+      value: Item_UpgradeLife Variant
       objectReference: {fileID: 0}
     - target: {fileID: 2039134489238394955, guid: 69e9e9eccfccca842b0e475f11ebe3e9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: upgradeData
       value: 
       objectReference: {fileID: 11400000, guid: d4d4b4f7bed01fe44b440087c4c39057, type: 2}
+    - target: {fileID: 8237731777051873566, guid: 69e9e9eccfccca842b0e475f11ebe3e9, type: 3}
+      propertyPath: m_text
+      value: '[E]LifeUP'
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

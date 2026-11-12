@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: upgradeData
       value: 
       objectReference: {fileID: 11400000, guid: 534d59065bd70ad48ab2a0e11d7630f0, type: 2}
+    - target: {fileID: 8237731777051873566, guid: 69e9e9eccfccca842b0e475f11ebe3e9, type: 3}
+      propertyPath: m_text
+      value: '[E] Bullet'
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

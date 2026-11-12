@@ -9,13 +9,17 @@ public class UIController : MonoBehaviour
     //ゲームのステータス用のテキスト
     public GameObject statusText;
 
-    //スライダー関連
+    //ライフ・スライダー関連
     public GameObject sliderPanel;
     public Slider lifeSlider;
+    public TextMeshProUGUI lifeText;
 
     //バレット関連
     public GameObject bulletPanel;
     public TextMeshProUGUI bulletText;
+
+    //デバッグ関連・臨機応変にいろいろ使う
+    public TextMeshProUGUI debugText;
 
     //ボタン関連
     public GameObject buttonPanel;
@@ -31,8 +35,14 @@ public class UIController : MonoBehaviour
         //時間差でステータス文字を非表示にする
         StartCoroutine(DisplayChange());
 
+        PlayerRun player = GameObject.FindAnyObjectByType<PlayerRun>();
+        lifeSlider.maxValue = player.Life();   //現LifeをスライダーのMAXに反映
+
         UpdateLife();   //プレイヤー体力を反映（開始時は満タンになる）
         UpdateBullet(); //残弾数を反映（）
+
+
+        UpdateDebug();  //debug表示
     }
 
     IEnumerator DisplayChange()
@@ -43,9 +53,10 @@ public class UIController : MonoBehaviour
 
     public void UpdateLife()    //Lifeを更新
     {
-        //PlayerRunすくkリプとを参照できるようにする
+        //PlayerRunスクリプトを参照できるようにする
         PlayerRun player = GameObject.FindAnyObjectByType<PlayerRun>();
         lifeSlider.value = player.Life();   //現Lifeをスライダーに反映
+        lifeText.text = player.Life().ToString(); //ライフをテキストに代入
     }
 
     public void UpdateBullet()  //Bulletを更新
@@ -53,6 +64,18 @@ public class UIController : MonoBehaviour
         PlayerShooter player = GameObject.FindAnyObjectByType<PlayerShooter>();
         bulletText.text = player.GetRemaining().ToString(); //残弾をテキストに代入
     }
+
+    public void UpdateDebug()   //左上のデバッグ表示・臨機応変にいろいろ使う
+    {
+        /*
+        GameObject player = GameObject.FindAnyObjectByType<GameObject>();
+        //debugText.text = //
+
+        Vector3 pos = player.transform.position;
+        debugText.text = pos.ToString();
+        */
+    }
+
 
     public void Retry()
     {

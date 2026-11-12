@@ -88,7 +88,7 @@ public class PlayerShooter : MonoBehaviour
                 Quaternion.identity);   //回転させない
 
             Rigidbody rbody =_bullet.GetComponent<Rigidbody>();  //生成したもののRigidbody
-            Debug.Log(bulletSpeed);
+            //Debug.Log(bulletSpeed);
             rbody.AddForce(new Vector3(0,0,bulletSpeed), ForceMode.Impulse);  //前シュート！
             //打ち出すときにみにチェックしているので、Time.deltatimeは点けなくてもPCによる性能差は出ない
 

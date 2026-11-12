@@ -1,5 +1,5 @@
 using System.Collections;
-using UnityEditor.Experimental.GraphView;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,7 +16,11 @@ public class PlayerRun : MonoBehaviour
     [SerializeField] private GameObject animaterBody;//アニメーターを持っているだろうGameObjectの取得に改造(追加)
     Animator animator;  //Anbimatorコンポーネントの取得
 
-    Vector3 moveDirection= Vector3.zero;    //Moveメソッドに与える方向。zero=Vector3(0,0,0)と同じ
+    //Vector3 moveDirection = Vector3.zero;    //Moveメソッドに与える方向。zero=Vector3(0f,0f,0f)と同じ
+    // newで作成（x, y, zはfloat型）
+    Vector3 moveDirection = new Vector3(0f, 0f, 0f);
+
+
     private int targetLane; //移動先レーン
 
     private int maxLife = DefaultLife;
@@ -31,7 +35,7 @@ public class PlayerRun : MonoBehaviour
     public float speedJump; //ジャンプ力
 
     [Header("前進加速力")]
-    public float accelerationZ = 10.0f;//加速
+    public float accelerationZ = 10.0f; //加速
     Coroutine resetIntervalCol; //インプットのインターバルを置くための変数
 
     //public float speedRotate = 3.0f;   //勝手に追加、回転速度
@@ -50,6 +54,12 @@ public class PlayerRun : MonoBehaviour
     public int Life()
     {
         return this.life;
+    }
+
+    //体力最大を参照メソッド 使わないかも
+    public int MaxLife()
+    {
+        return this.maxLife;
     }
 
     public void RecoverLife(int val)    //アクセサ
@@ -91,10 +101,10 @@ public class PlayerRun : MonoBehaviour
     {
         if (GameManager.gameState == GameState.GameEnd) return;
 
-        //勝手にデバッグ用に機能を追加してみた
+        //勝手にデバッグ用に機能を追加してみた①
         if (moveAction.ReadValue<Vector2>().y > 0 && Time.timeScale != 10.0f)
         {
-            Time.timeScale = 10.0f; //上が押されたら、高速化
+            Time.timeScale = 5.0f; //上が押されたら、高速化
         }
 
         if (moveAction.ReadValue<Vector2>().y < 0 && Time.timeScale != 0.0f) //追加！
@@ -108,8 +118,13 @@ public class PlayerRun : MonoBehaviour
         {
                 Time.timeScale = 1.0f;  //通常速度に戻す
         }
-        //↑ここまで
+        //勝手にデバッグ機能を追加してみた②
+        //UIController controller = GameObject.FindAnyObjectByType<UIController>();
+        //controller.UpdateDebug();
+        //Vector3 pos = transform.position;
+        //Debug.Log($"pos:" + pos);
 
+        //↑ここまで
 
 
         //点滅処理
