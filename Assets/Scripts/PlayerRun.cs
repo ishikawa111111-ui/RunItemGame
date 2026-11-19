@@ -235,7 +235,36 @@ public class PlayerRun : MonoBehaviour
             // 今はアニメがないのでコメントアウト
 
         }
-   
+
+    private void FixedUpdate()
+    {
+        /*
+        //勝手にデバッグ用に機能を追加してみた①
+        if (moveAction.ReadValue<Vector2>().y > 0 && Time.timeScale != 5.0f)
+        {
+            Time.timeScale = 5.0f; //上が押されたら、高速化
+        }
+
+        if (moveAction.ReadValue<Vector2>().y < 0 && Time.timeScale != 0.0f) //追加！
+        {
+            //Time.timeScale = 0.0f; //下が押されたら、一時停止（ポーズ）
+            Time.timeScale = 0.3f; //下が押されたら、スロー
+        }
+
+        if (moveAction.ReadValue<Vector2>().x != 0) //移動しようとしたら（移動できなくても）
+                                                    //if (moveAction.ReadValue<Vector2>().x != 0 || jumpAction.WasPressedThisFrame()) //移動しようとしたら（移動できなくても）
+        {
+            Time.timeScale = 1.0f;  //通常速度に戻す
+        }
+        //勝手にデバッグ機能を追加してみた②
+        //UIController controller = GameObject.FindAnyObjectByType<UIController>();
+        //controller.UpdateDebug();
+        //Vector3 pos = transform.position;
+        //Debug.Log($"pos:" + pos);
+        */
+        //↑ここまで
+    }
+
     public void MoveToLeft()
     {
         if (IsStun()) return;
