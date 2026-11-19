@@ -212,14 +212,14 @@ public class PlayerRun : MonoBehaviour
             }
         }
 
+        /*
+        //常に重力がかかっている
+        //moveDirection.y -= gravity * Time.deltaTime;  //二重にdeltaTimeかかっているで消した
+        moveDirection.y -= gravity;    //が、速度変化時に対応するため復活させた
 
-            //常に重力がかかっている
-            moveDirection.y -= gravity;
-            //moveDirection.y -= gravity * Time.deltaTime;  //二重にdeltaTimeかかっているで消した
 
-
-            //TransformaDirection（ワールド座標の向きを、グローバルな向きの座標に変換）
-            Vector3 globalDirection = transform.TransformDirection(moveDirection);
+        //TransformaDirection（ワールド座標の向きを、グローバルな向きの座標に変換）
+        Vector3 globalDirection = transform.TransformDirection(moveDirection);
 
             //セッティングしたmoveDirectionの値を使ってMoveメソッドの発動
             //＊実際にPlayerが動く　Time.deltaTimeでPC性能差によらないように動作安定
@@ -229,6 +229,7 @@ public class PlayerRun : MonoBehaviour
 
             //地面にいるのであれば、Y成分の力を毎回 0にリセット（重力がかかり続けないように）
             if (controller.isGrounded) moveDirection.y = 0;
+        */
 
             //アニメの制御
             // animator.SetBool("run", moveDirection.z > 0.0f);
@@ -238,31 +239,23 @@ public class PlayerRun : MonoBehaviour
 
     private void FixedUpdate()
     {
-        /*
-        //勝手にデバッグ用に機能を追加してみた①
-        if (moveAction.ReadValue<Vector2>().y > 0 && Time.timeScale != 5.0f)
-        {
-            Time.timeScale = 5.0f; //上が押されたら、高速化
-        }
+        //常に重力がかかっている
+        //moveDirection.y -= gravity * Time.deltaTime;  //二重にdeltaTimeかかっているで消した
+        moveDirection.y -= gravity;    //が、速度変化時に対応するため復活させた
 
-        if (moveAction.ReadValue<Vector2>().y < 0 && Time.timeScale != 0.0f) //追加！
-        {
-            //Time.timeScale = 0.0f; //下が押されたら、一時停止（ポーズ）
-            Time.timeScale = 0.3f; //下が押されたら、スロー
-        }
 
-        if (moveAction.ReadValue<Vector2>().x != 0) //移動しようとしたら（移動できなくても）
-                                                    //if (moveAction.ReadValue<Vector2>().x != 0 || jumpAction.WasPressedThisFrame()) //移動しようとしたら（移動できなくても）
-        {
-            Time.timeScale = 1.0f;  //通常速度に戻す
-        }
-        //勝手にデバッグ機能を追加してみた②
-        //UIController controller = GameObject.FindAnyObjectByType<UIController>();
-        //controller.UpdateDebug();
-        //Vector3 pos = transform.position;
-        //Debug.Log($"pos:" + pos);
-        */
-        //↑ここまで
+        //TransformaDirection（ワールド座標の向きを、グローバルな向きの座標に変換）
+        Vector3 globalDirection = transform.TransformDirection(moveDirection);
+
+        //セッティングしたmoveDirectionの値を使ってMoveメソッドの発動
+        //＊実際にPlayerが動く　Time.deltaTimeでPC性能差によらないように動作安定
+        //controller.Move(moveDirection * Time.deltaTime);
+
+        controller.Move(globalDirection * Time.deltaTime);
+
+        //地面にいるのであれば、Y成分の力を毎回 0にリセット（重力がかかり続けないように）
+        if (controller.isGrounded) moveDirection.y = 0;
+
     }
 
     public void MoveToLeft()
