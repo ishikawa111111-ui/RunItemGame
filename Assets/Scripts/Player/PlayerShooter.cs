@@ -12,10 +12,10 @@ public class PlayerShooter : MonoBehaviour
     Coroutine shootStart;   //シュートされているかどうかを知るためのコルーチン型の変数
 
     [Header("弾速・インターバル時間")]
-    public float bulletSpeed = 10.0f;
-    public float shootInterval = 0.5f;
+    public float bulletSpeed = 20.0f;
+    public float shootInterval = 0.2f;  //連射できない時間
 
-    const int startRemaining = 10;  //初期弾数
+    const int startRemaining = 1000;  //初期弾数
     private int bulletRemaining = startRemaining;   //現在の弾数
 
     //UIなどに弾数を伝えるアクセサメソッド
@@ -56,7 +56,8 @@ public class PlayerShooter : MonoBehaviour
     {
         //アタックが押されたメソッド
         //if (shootAction.IsPressed())    //新しいInputシステム書き方(IsPressed 押しっぱなし)
-        if (shootAction.WasPerformedThisFrame() && bulletRemaining > 0)    //新しいInputシステム書き方（Was～１回押す）
+        //if (shootAction.WasPerformedThisFrame() && bulletRemaining > 0)    //新しいInputシステム書き方（Was～１回押す）
+        if (shootAction.IsPressed() && bulletRemaining > 0)    //おしっぱで連射に変更
         {
                 Shoot();
         }
@@ -107,8 +108,9 @@ public class PlayerShooter : MonoBehaviour
     //インターバル用
     IEnumerator ShootStart()  //特定の時間（インターバル）だけ入力を待つコルーチン
     {
-        //連射できないように0.5秒待つ
-        yield return new WaitForSeconds(shootInterval); //いーるどりたーん＝0.5秒待ってから、
+        //yield return new WaitForSeconds(0.5f);    //0.5秒待つ
+        //連射できないようにインターバル秒待つ
+        yield return new WaitForSeconds(shootInterval); //いーるどりたーん＝インターバル秒待ってから、
         //コルーチン変数の解放
         shootStart = null; //コルーチン発動中である証明だった変数を解放
     }

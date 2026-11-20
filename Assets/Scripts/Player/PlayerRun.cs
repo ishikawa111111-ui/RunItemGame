@@ -35,7 +35,7 @@ public class PlayerRun : MonoBehaviour
     public float speedJump; //ジャンプ力
 
     [Header("前進加速力")]
-    public float accelerationZ = 10.0f; //加速
+    public float accelerationZ = 15.0f; //加速
     Coroutine resetIntervalCol; //インプットのインターバルを置くための変数
 
     //public float speedRotate = 3.0f;   //勝手に追加、回転速度
@@ -211,25 +211,6 @@ public class PlayerRun : MonoBehaviour
                 //Clampは、加減上限が決まっている ↑下限は第二引数の0、上限は第三引数のspeedZ（=3.0f）
             }
         }
-
-        /*
-        //常に重力がかかっている
-        //moveDirection.y -= gravity * Time.deltaTime;  //二重にdeltaTimeかかっているで消した
-        moveDirection.y -= gravity;    //が、速度変化時に対応するため復活させた
-
-
-        //TransformaDirection（ワールド座標の向きを、グローバルな向きの座標に変換）
-        Vector3 globalDirection = transform.TransformDirection(moveDirection);
-
-            //セッティングしたmoveDirectionの値を使ってMoveメソッドの発動
-            //＊実際にPlayerが動く　Time.deltaTimeでPC性能差によらないように動作安定
-            //controller.Move(moveDirection * Time.deltaTime);
-
-            controller.Move(globalDirection * Time.deltaTime);
-
-            //地面にいるのであれば、Y成分の力を毎回 0にリセット（重力がかかり続けないように）
-            if (controller.isGrounded) moveDirection.y = 0;
-        */
 
             //アニメの制御
             // animator.SetBool("run", moveDirection.z > 0.0f);

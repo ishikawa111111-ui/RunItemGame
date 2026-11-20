@@ -12,18 +12,16 @@ public class CameraController : MonoBehaviour
     public float followSpeed = 5.0f; //カメラの追従スピード
 
     [Header("カメラの初期位置")]
-    //public Vector3 startPos = new Vector3(0, 4.5f, 7.5f);
-    public Vector3 startPos = new Vector3(0, 10f, -6f);
-    //public Quaternion startRot = Quaternion.Euler(15.5f, 0, 0);
-    public Quaternion startRot = Quaternion.Euler(30.0f, 0, 0);
+    public Vector3 startPos = new Vector3(0, 10f, -6f);     //初期位置
+    public Quaternion startRot = Quaternion.Euler(30.0f, 0, 0); //初期角度
 
     void Start()
     {
         //カメラ位置の初期化
-        transform.position = startPos;
-        transform.rotation = startRot;
+        transform.position = startPos;  //初期位置
+        transform.rotation = startRot;  //初期角度
 
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Player");    //Playerタグのオブジェクト
 
         //最初に維持するべき距離を定義（Player位置-カメラ位置）
         //diff = target.transform.position - transform.position;
@@ -37,9 +35,11 @@ public class CameraController : MonoBehaviour
         transform.position = Vector3.Lerp(
             transform.position, //現地点A
             player.transform.position - diff, //目的地B 
+            //player.transform.position - diff, //目的地B 
             //target.transform.position - diff, //目的地B 
+
             Time.deltaTime * followSpeed); //A→Bへの進行に対して、どれだけ進んだ位置にいるべきかの進捗率
-            //プレイヤーと離れるほど素早く移動、近いとゆっくり（現在地A→目的地Bに向けて就職していく）
+            //プレイヤーと離れるほど素早く移動、近いとゆっくり（現在地A→目的地Bに向けて収縮していく）
             //最終的には限りなく近づき続けるだけでイコールにはならない
         //現在はChinemaSeaneのコンポーネントでカメラコントローラするのが基本
     }
