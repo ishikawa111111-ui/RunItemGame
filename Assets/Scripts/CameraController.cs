@@ -12,8 +12,13 @@ public class CameraController : MonoBehaviour
     public float followSpeed = 5.0f; //カメラの追従スピード
 
     [Header("カメラの初期位置")]
+    public Vector3 startPos = new Vector3(0, 10f, -18f);     //初期位置
+    public Quaternion startRot = Quaternion.Euler(130.0f, 0, 0); //初期角度
+
+    /*  改造前bk
     public Vector3 startPos = new Vector3(0, 10f, -6f);     //初期位置
     public Quaternion startRot = Quaternion.Euler(30.0f, 0, 0); //初期角度
+    */
 
     void Start()
     {

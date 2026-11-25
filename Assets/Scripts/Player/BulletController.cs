@@ -17,6 +17,7 @@ public class BulletController : MonoBehaviour
 
     void Start()
     {
+        GameObject gameObject = GetComponent<GameObject>();
         Destroy(gameObject, deleteTime);
     }
 
@@ -35,4 +36,9 @@ public class BulletController : MonoBehaviour
         ;
     }
     */
+
+    void Update()
+    {
+        transform.Rotate(0, 0, 360f * Time.deltaTime);
+    }
 }

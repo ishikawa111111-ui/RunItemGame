@@ -12,10 +12,10 @@ public class PlayerShooter : MonoBehaviour
     Coroutine shootStart;   //シュートされているかどうかを知るためのコルーチン型の変数
 
     [Header("弾速・インターバル時間")]
-    public float bulletSpeed = 20.0f;
+    public float bulletSpeed = 30.0f;
     public float shootInterval = 0.2f;  //連射できない時間
 
-    const int startRemaining = 1000;  //初期弾数
+    const int startRemaining = 2000;  //初期弾数
     private int bulletRemaining = startRemaining;   //現在の弾数
 
     //UIなどに弾数を伝えるアクセサメソッド

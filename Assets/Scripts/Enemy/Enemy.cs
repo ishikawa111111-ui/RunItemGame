@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    private int enemyLife = 5;
+    private int enemyLife = 3;
     public GameObject enemyBody;   //見た目オブジェクトの情報
 
     //無敵時間の秒数
-    public float freezeTime = 0.1f;
+    public float freezeTime = 0.01f;
 
     //ダメージ中かどうか　ダメージ中のコルーチンを参照する変数
     Coroutine damageStart;
@@ -24,6 +24,10 @@ public class Enemy : MonoBehaviour
 
     private Material _originalColorMat; // 元の色用のマテリアル
     private Renderer _rend;
+
+    [SerializeField] private GameObject player; //プレイヤー
+
+
 
 
     [Header("Flash")]
@@ -48,6 +52,8 @@ public class Enemy : MonoBehaviour
         {
             originalColors[i] = renderers[i].material.color;
         }
+
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Update()
@@ -76,6 +82,8 @@ public class Enemy : MonoBehaviour
             }
             return; // 現フレームのUpdateを中断する（Updateは次フレームでまた動くけどね）
         }
+
+        transform.LookAt(player.transform);
     }
 
     private void OnTriggerEnter(Collider other)

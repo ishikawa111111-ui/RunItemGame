@@ -88,7 +88,7 @@ public class UIController : MonoBehaviour
     {
         buttonPanel.SetActive(true);    //ボタンパネル表示させる
         statusText.SetActive(true);     //テキスト表示させる
-        statusText.GetComponent<TextMeshProUGUI>().text = "GAME OVER";
+        statusText.GetComponent<TextMeshProUGUI>().text = "failed";
 
         sliderPanel.SetActive(false);   //Life非表示
         bulletPanel.SetActive(false);   //弾数非表示
@@ -104,7 +104,7 @@ public class UIController : MonoBehaviour
     {
         buttonPanel.SetActive(true);    //ボタンパネル表示させる
         statusText.SetActive(true);     //テキスト表示させる
-        statusText.GetComponent<TextMeshProUGUI>().text = "GAME CLEAR";
+        statusText.GetComponent<TextMeshProUGUI>().text = "CLEAR";
 
         sliderPanel.SetActive(false);   //Life非表示
         bulletPanel.SetActive(false);   //弾数非表示
