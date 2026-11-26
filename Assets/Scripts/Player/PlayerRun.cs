@@ -2,6 +2,7 @@ using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerRun : MonoBehaviour
 {
@@ -27,6 +28,9 @@ public class PlayerRun : MonoBehaviour
     private int life = DefaultLife; //現体力   →アクセサ、ライフメソッドを作成
     private float recoverTime = 0.0f;   //硬直カウントダウン
 
+
+    [SerializeField] private Image gaugeImage;
+    private float gaugeValue = 0.0f;
 
     [Header("重力・前進・横移動・ジャンプ力")]
     public float gravity;
@@ -84,6 +88,12 @@ public class PlayerRun : MonoBehaviour
         maxLife = DefaultLife + GameData.GetValue(UpgradeType.LifeUp);
         life = maxLife; //ライフを最大値で初期化
 
+
+        //円ゲージ用
+        gaugeValue = (life/maxLife);
+        Debug.Log("SHIELD: " + gaugeValue);
+
+
         //Playerに付いているコンポーネントの取得
         controller = GetComponent<CharacterController>();
 
@@ -125,6 +135,17 @@ public class PlayerRun : MonoBehaviour
         //Debug.Log($"pos:" + pos);
 
         //↑ここまで
+
+        /*
+        //　円型ゲージを制御してみる
+        // ゲージを徐々に増加
+        gaugeValue += 0.01f * Time.deltaTime;
+        gaugeImage.fillAmount = gaugeValue;
+        if (gaugeValue >= 1f)
+            gaugeValue = 0f; // リセット
+        */
+        //↑ここまで
+
 
 
         //点滅処理
@@ -295,6 +316,11 @@ public class PlayerRun : MonoBehaviour
         life--;
         UIController controller = GameObject.FindAnyObjectByType<UIController>();
         controller.UpdateLife();
+
+        //↓これUIControllerに書き直したほうがいいかも
+        gaugeValue = (life / maxLife);
+        Debug.Log("SHIELD: " + gaugeValue);
+
 
         if (life <= 0)  //ライフなくなったら
         {

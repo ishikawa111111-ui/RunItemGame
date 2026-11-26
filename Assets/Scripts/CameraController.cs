@@ -35,6 +35,7 @@ public class CameraController : MonoBehaviour
 
     void LateUpdate()   //LateUpdateはUpdate、FixedUpdateの後に実行される＝プレイヤーが動いた後にカメラが動く
     {
+        // 元のカメラ
         //Lerpらーぷ　現在地から、目的地へ移動する
         //プレイヤーがどこにいても、一定の位置をキープする
         transform.position = Vector3.Lerp(
@@ -44,8 +45,11 @@ public class CameraController : MonoBehaviour
             //target.transform.position - diff, //目的地B 
 
             Time.deltaTime * followSpeed); //A→Bへの進行に対して、どれだけ進んだ位置にいるべきかの進捗率
-            //プレイヤーと離れるほど素早く移動、近いとゆっくり（現在地A→目的地Bに向けて収縮していく）
-            //最終的には限りなく近づき続けるだけでイコールにはならない
-        //現在はChinemaSeaneのコンポーネントでカメラコントローラするのが基本
+                                           //プレイヤーと離れるほど素早く移動、近いとゆっくり（現在地A→目的地Bに向けて収縮していく）
+                                           //最終的には限りなく近づき続けるだけでイコールにはならない
+                                           //現在はChinemaSeaneのコンポーネントでカメラコントローラするのが基本
+
+        transform.LookAt(player.transform); //追加の挙動。まず、プレイヤーの方向を向く
+
     }
 }

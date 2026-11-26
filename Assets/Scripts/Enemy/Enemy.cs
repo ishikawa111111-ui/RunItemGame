@@ -83,7 +83,7 @@ public class Enemy : MonoBehaviour
             return; // 現フレームのUpdateを中断する（Updateは次フレームでまた動くけどね）
         }
 
-        transform.LookAt(player.transform);
+        transform.LookAt(player.transform); //プレイヤーの方向を向く
     }
 
     private void OnTriggerEnter(Collider other)
